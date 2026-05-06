@@ -2,7 +2,8 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 手机端强制兼容适配，禁止缩放 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>围棋学习反馈表单</title>
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
@@ -18,15 +19,15 @@
 
         body {
             background: #f7f8fa;
-            padding: 20px;
-            max-width: 900px;
+            padding: 15px;
+            max-width: 100%;
             margin: 0 auto;
         }
 
         .page-title {
             text-align: center;
-            font-size: 24px;
-            margin-bottom: 24px;
+            font-size: 22px;
+            margin-bottom: 20px;
             padding-bottom: 10px;
             border-bottom: 2px solid #4299e1;
             color: #2d3748;
@@ -34,21 +35,22 @@
 
         .form-container {
             background: #fff;
-            padding: 24px;
+            padding: 20px;
             border-radius: 12px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .form-group {
-            margin-bottom: 18px;
+            margin-bottom: 16px;
         }
 
         .form-label {
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             font-weight: bold;
             color: #4a5568;
+            font-size: 15px;
         }
 
         input, textarea {
@@ -56,17 +58,19 @@
             padding: 10px 12px;
             border: 1px solid #e2e8f0;
             border-radius: 6px;
-            font-size: 14px;
+            font-size: 15px;
+            display: block;
         }
 
         textarea {
             resize: vertical;
-            min-height: 400px;
+            min-height: 180px;
         }
 
         .star-group {
             display: flex;
-            gap: 12px;
+            flex-wrap: wrap;
+            gap: 8px;
             margin-top: 6px;
         }
 
@@ -74,6 +78,7 @@
             display: flex;
             align-items: center;
             gap: 4px;
+            font-size: 14px;
         }
 
         .star-item input {
@@ -81,18 +86,20 @@
         }
 
         .btn-group {
-            display: flex;
-            gap: 14px;
+            display: block;
             margin-top: 20px;
-            flex-wrap: wrap;
         }
 
         .btn {
+            display: block;
+            width: 100%;
             padding: 12px 20px;
             border-radius: 8px;
             font-weight: bold;
             border: none;
             cursor: pointer;
+            margin-bottom: 10px;
+            font-size: 16px;
         }
 
         .btn-blue {
@@ -105,117 +112,144 @@
             color: #fff;
         }
 
-        /* ========== 导出卡片 专业视觉优化 ========== */
+        /* ========== 书信风格 手机+电脑固定兼容版 ========== */
         #feedbackCard {
-            background: #ffffff;
-            width: 90%;
-            max-width: 820px;
-            padding: 40px 42px;
-            border-radius: 24px;
+            background: #fdfaf2;
+            background-image: linear-gradient(to bottom, #fdfaf2, #f9f5eb);
+            /* 固定宽度，手机端不自适应错乱 */
+            width: 750px;
+            padding: 45px 50px;
+            border-radius: 18px;
             display: none;
             margin: 0 auto;
-            font-size: 18px !important;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-            border: 1px solid #e6e6e6;
+            font-size: 17px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+            border: 1px solid #e0d8c8;
+            position: relative;
+        }
+
+        #feedbackCard::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            border-top: 3px solid #c9b18c;
+            border-left: 3px solid #c9b18c;
+            opacity: 0.6;
+        }
+        #feedbackCard::after {
+            content: '';
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-bottom: 3px solid #c9b18c;
+            border-right: 3px solid #c9b18c;
+            opacity: 0.6;
         }
 
         .card-title {
             text-align: center;
-            font-size: 28px;
+            font-size: 26px;
             font-weight: bold;
-            margin-bottom: 32px;
-            color: #2b5c94;
-            letter-spacing: 1px;
+            margin-bottom: 35px;
+            color: #6d4c41;
+            letter-spacing: 2px;
+            position: relative;
         }
 
         .card-top {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            gap: 28px;
-            margin-bottom: 32px;
+            gap: 25px;
+            margin-bottom: 30px;
         }
 
         .info-list {
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 14px;
         }
 
         .info-row {
-            font-size: 18px;
-            line-height: 1.8;
+            font-size: 17px;
+            line-height: 1.75;
             display: flex;
-            padding: 6px 0;
+            padding: 4px 0;
+            color: #3d3528;
         }
 
         .info-label {
             font-weight: bold;
-            min-width: 120px;
-            color: #2d3748;
+            min-width: 110px;
+            color: #6d4c41;
         }
 
         .student-photo {
-            height: 400px;
-            min-height: 400px;
+            height: 360px;
+            min-height: 360px;
             width: auto;
-            max-width: 320px;
+            max-width: 280px;
             object-fit: cover;
-            border-radius: 16px;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+            border: 1px solid #ddd;
         }
 
         .star-row {
             display: flex;
             flex-wrap: wrap;
             justify-content: flex-start;
-            gap: 30px;
-            margin: 30px 0;
-            font-size: 18px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
+            gap: 25px;
+            margin: 25px 0;
+            font-size: 17px;
+            padding-top: 18px;
+            border-top: 1px dashed #d3c7b2;
         }
 
         .star-col {
             white-space: nowrap;
             font-weight: 500;
-            color: #333;
+            color: #554439;
         }
 
         .yellow-star {
-            color: #ffc107;
-            font-size: 20px;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            color: #e6a800;
+            font-size: 19px;
         }
 
         .text-block {
-            margin-top: 28px;
-            line-height: 1.9;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
+            margin-top: 25px;
+            line-height: 1.85;
+            padding-top: 18px;
+            border-top: 1px dashed #d3c7b2;
         }
 
         .text-title {
             font-weight: bold;
-            margin-bottom: 14px;
-            font-size: 20px;
-            color: #2b5c94;
+            margin-bottom: 12px;
+            font-size: 19px;
+            color: #6d4c41;
         }
 
         .text-content {
             white-space: pre-line;
-            font-size: 18px;
-            line-height: 1.9;
-            color: #333;
+            font-size: 17px;
+            line-height: 1.85;
+            color: #332c26;
         }
 
         #resultImage {
             max-width: 100%;
-            border-radius: 20px;
-            margin-top: 24px;
+            border-radius: 16px;
+            margin-top: 20px;
             display: none;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
         }
     </style>
 </head>
@@ -313,7 +347,6 @@
     </div>
 </div>
 
-<!-- 导出用专业卡片 -->
 <div id="feedbackCard">
     <div class="card-title" id="cardTitle"></div>
 
@@ -350,14 +383,12 @@
 <img id="resultImage">
 
 <script>
-// 年月选择器
 flatpickr("#feedbackMonth", {
     dateFormat: "Y年m月",
     allowInput: false,
     clickOpens: true
 });
 
-// 照片上传（修复切换图片问题）
 let studentImageUrl = "";
 document.getElementById('studentPhoto').addEventListener('change', function(e) {
     studentImageUrl = "";
@@ -371,7 +402,6 @@ document.getElementById('studentPhoto').addEventListener('change', function(e) {
     }
 });
 
-// 知识点：逗号/顿号分隔，自动换行
 function getKnowledge() {
     const val = document.getElementById("knowledgeInput").value.trim();
     if (!val) return "";
@@ -383,13 +413,11 @@ function star(name) {
     return el ? el.value : "";
 }
 
-// 黄色星星
 function starText(n) {
     if (!n) return "";
     return "★".repeat(n) + "☆".repeat(5-n);
 }
 
-// 渲染卡片（空字段完全隐藏）
 function renderCard() {
     const name = document.getElementById("studentName").value.trim();
     const month = document.getElementById("feedbackMonth").value;
@@ -404,9 +432,8 @@ function renderCard() {
     const summary = document.getElementById("summary").value.trim();
     const vision = document.getElementById("vision").value.trim();
 
-    document.getElementById("cardTitle").innerText = name ? `${name} 围棋学习反馈表` : "围棋学习反馈表";
+    document.getElementById("cardTitle").innerText = name ? `${name} 围棋学习反馈` : "围棋学习反馈";
 
-    // 空值 → 整行隐藏
     function hideIfEmpty(rowId, textId, value) {
         const row = document.getElementById(rowId);
         const text = document.getElementById(textId);
@@ -426,7 +453,6 @@ function renderCard() {
     hideIfEmpty("pointsRow", "cardPoints", points);
     hideIfEmpty("playRow", "cardPlay", play);
 
-    // 星级
     document.getElementById("cardClassStar").innerText = starText(sClass);
     document.getElementById("starClass").style.display = sClass ? "block" : "none";
 
@@ -436,14 +462,12 @@ function renderCard() {
     document.getElementById("cardHomeworkStar").innerText = starText(sHome);
     document.getElementById("starHomework").style.display = sHome ? "block" : "none";
 
-    // 文本模块
     document.getElementById("summaryBlock").style.display = summary ? "block" : "none";
     document.getElementById("cardSummary").innerText = summary;
 
     document.getElementById("visionBlock").style.display = vision ? "block" : "none";
     document.getElementById("cardVision").innerText = vision;
 
-    // 图片
     const cardPhoto = document.getElementById("cardPhoto");
     if (studentImageUrl) {
         cardPhoto.src = "";
@@ -456,12 +480,19 @@ function renderCard() {
     document.getElementById("feedbackCard").style.display = "block";
 }
 
-// 生成图片
+// 手机端关键兼容配置
 async function generateImage() {
     try {
         renderCard();
         const card = document.getElementById("feedbackCard");
-        const canvas = await html2canvas(card, { scale: 3, useCORS: true });
+        // 增加移动端兼容参数，防止错乱、留白、偏移
+        const canvas = await html2canvas(card, { 
+            scale: 2.5, 
+            useCORS: true,
+            allowTaint: false,
+            logging: false,
+            backgroundColor: null
+        });
         const img = document.getElementById("resultImage");
         img.src = canvas.toDataURL("image/png");
         img.style.display = "block";
@@ -470,19 +501,27 @@ async function generateImage() {
         const a = document.createElement("a");
         a.download = `${name}围棋学习反馈.png`;
         a.href = img.src;
+        // 兼容手机自动下载
+        document.body.appendChild(a);
         a.click();
-        alert("图片已成功保存到本地！");
+        document.body.removeChild(a);
+        alert("图片已成功保存！");
     } catch (e) {
         alert("生成失败：" + e.message);
     }
 }
 
-// 生成PDF
 async function generatePDF() {
     try {
         renderCard();
         const card = document.getElementById("feedbackCard");
-        const canvas = await html2canvas(card, { scale: 3, useCORS: true });
+        const canvas = await html2canvas(card, { 
+            scale: 2.5, 
+            useCORS: true,
+            allowTaint: false,
+            logging: false,
+            backgroundColor: null
+        });
         const imgData = canvas.toDataURL("image/jpeg", 1.0);
 
         const { jsPDF } = jspdf;
@@ -495,7 +534,7 @@ async function generatePDF() {
         pdf.addImage(imgData, "JPEG", 0, 0, canvas.width, canvas.height);
         const name = document.getElementById("studentName").value.trim() || "学员";
         pdf.save(`${name}围棋学习反馈.pdf`);
-        alert("PDF已成功保存到本地！");
+        alert("PDF已成功保存！");
     } catch (e) {
         alert("生成失败：" + e.message);
     }
